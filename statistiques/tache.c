@@ -30,7 +30,7 @@ void TPHF(char * fileuser, int *f,int *h)
     	{
         	while(fscanf(f1,"%s %s %d %d %d %s %s %s %d %d %s %s %s \n",u.nom_user,u.prenom_user,&u.date.jour,&u.date.mois,&u.date.annee,u.cin_user,u.role_user,u.genre_user,&u.num_bv_user,&u.vote_user,u.nationalite_obs,u.profession_obs,u.appartenance_obs)!=EOF)
         	{
-			if(u.vote_user==1)
+			if(u.vote_user==!-1)
 			{
             			if(strcasecmp(u.genre_user,"femme")==0)
                 		{	
