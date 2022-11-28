@@ -2,7 +2,7 @@
 #include "utilisateur.h"
 #include <string.h>
 
-int ajout_user(char * fileuser,utilisateur u)
+void ajout_user(char * fileuser,utilisateur u)
 {	
 	FILE * f=fopen(fileuser,"a");
 	if (f!=NULL)
@@ -19,13 +19,11 @@ int ajout_user(char * fileuser,utilisateur u)
 		
 
 		fclose(f);
-		return 1;
 	}
-	else return 0;
 }
 
 
-int modifier_user(char * fileuser,char id[],utilisateur nouv)
+void modifier_user(char * fileuser,char id[],utilisateur nouv)
 {	int trouve=0;
 	utilisateur u;
 	FILE * f=fopen(fileuser,"r");
@@ -48,9 +46,8 @@ int modifier_user(char * fileuser,char id[],utilisateur nouv)
 	fclose(f2);
 	remove(fileuser);
 	rename("nouv.txt",fileuser);
-	return trouve;
 }
-int supprimer_user(char * fileuser, char cin[])
+void supprimer_user(char * fileuser, char cin[])
 {
 	int trouve=0;
 	utilisateur u;
@@ -70,7 +67,6 @@ int supprimer_user(char * fileuser, char cin[])
 	fclose(f2);
 	remove(fileuser);
 	rename("nouv.txt",fileuser);
-	return trouve;
 }
 utilisateur chercher_user(char * fileuser,char cin[])
 {
@@ -86,8 +82,6 @@ utilisateur chercher_user(char * fileuser,char cin[])
 		}
 	}
 	fclose(f);
-	if (trouve==0)
-		strcpy(u.cin_user,"-1");
 	return u;
 }
 
