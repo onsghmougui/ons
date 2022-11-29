@@ -21,9 +21,9 @@ typedef struct
 	char profession_obs[50];
 	char appartenance_obs[50];
 }utilisateur;
-int ajout_user(char * fileuser,utilisateur u);
-int modifier_user(char * fileuser,char id[],utilisateur nouv);
-int supprimer_user(char * fileuser, char cin[]);
+void ajout_user(char * fileuser,utilisateur u);
+void modifier_user(char * fileuser,char id[],utilisateur nouv);
+void supprimer_user(char * fileuser, char cin[]);
 utilisateur chercher_user(char * fileuser,char cin[]);
 #endif
 

@@ -8,7 +8,7 @@ int main ()
   int x=ajout_user("utilisateur.txt",u1);
   x=ajout_user("utilisateur.txt",u2);
   x=ajout_user("utilisateur.txt",u3);
-  //x=modifier_user("utilisateur.txt","01657477",u2);
+  x=modifier_user("utilisateur.txt","01657477",u2);
   x=supprimer_user("utilisateur.txt","01657477");
 
 
