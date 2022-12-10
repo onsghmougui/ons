@@ -1,0 +1,5 @@
+ons ghmougui 13 11 2001 14423602 observateur Femme 1 1 Etrangere ingenieur droite 
+zayani yoser 10 12 1800 14452635 observateur Homme 1 0 Tunisienne ing gauche 
+zayani omar 10 12 1800 14452635 agentBV Homme 1 0 -1 -1 -1 
+oueslati sofiene 1 12 1900 14425635 observateur Homme 2 0 Tunisienne prof droite 
+oues mohamed 11 12 1900 14452522 observateur Homme 4 1 Tunisienne infer autres 
