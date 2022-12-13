@@ -4,3 +4,4 @@
 
 GtkWidget* create_ajout_user (void);
 GtkWidget* create_affichage_user (void);
+GtkWidget* create_Statistiques_user (void);

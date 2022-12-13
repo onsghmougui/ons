@@ -11,7 +11,7 @@ typedef struct
 } date_user;
 typedef struct 
 {
-	char nom_user[50];
+	char nom_user[20];
 	char prenom_user[50];
 	date_user date;
 	char cin_user[10];
@@ -28,6 +28,9 @@ void afficher_user(GtkWidget *liste,char * fileuser);
 void modifier_user(char * fileuser,char id[],utilisateur nouv,int ET,int OU);
 void supprimer_user(char * fileuser,char cin[50]);
 utilisateur chercher_user(char * fileuser,char cin[]);
+float TVB(char * fileuser);
+void TPHF(char *fileuser,float *h,float *f);
+int NbrElecVote(char * fileuser);
 
 #endif
 

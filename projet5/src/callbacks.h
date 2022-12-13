@@ -53,9 +53,25 @@ on_buttonSupprimer_user_clicked        (GtkButton       *objet,
                                         gpointer         user_data);
 
 void
-on_buttonEnregistrer_user_clicked      (GtkButton       *button,
+on_buttonEnregistrer_user_clicked      (GtkButton       *objet,
                                         gpointer         user_data);
 
 void
 on_buttonRechercher_user_clicked       (GtkButton       *objet,
+                                        gpointer         user_data);
+
+void
+on_buttonPreced_user_clicked           (GtkButton       *button,
+                                        gpointer         user_data);
+
+void
+on_buttonPreced_stat_clicked           (GtkWidget       *objet,
+                                        gpointer         user_data);
+
+void
+on_buttonAff_stat_clicked              (GtkButton       *objet,
+                                        gpointer         user_data);
+
+void
+on_buttonStat_user_clicked             (GtkButton       *objet,
                                         gpointer         user_data);

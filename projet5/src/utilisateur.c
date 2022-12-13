@@ -37,38 +37,31 @@ void ajout_user(char * fileuser,utilisateur u,int ET,int OU )
 
 
 
-void modifier_user(char * fileuser,char id[],utilisateur nouv,int ET,int OU)
-{	int trouve=0;
-	utilisateur u;
-	if(ET==2)
-	strcpy(u.genre_user,"Homme");
-	if(ET==1)
-	strcpy(u.genre_user,"Femme");
-	if(OU==2)
-	strcpy(u.nationalite_obs,"Tunisienne");
-	if(OU==1)
-	strcpy(u.nationalite_obs,"Etrangere");
-	FILE * f=fopen(fileuser,"r");
-	FILE * f2=fopen("nouv.txt","a");
-	if((f!=NULL) && (f2!=NULL))
-	{
-		while((trouve==0)&&(fscanf(f,"%s %s %d %d %d %s %s %s %d %d %s %s %s\n ",u.nom_user,u.prenom_user,&u.date.jour,&u.date.mois,&u.date.annee,u.cin_user,u.role_user,u.genre_user,&u.num_bv_user,&u.vote_user,u.nationalite_obs,u.profession_obs,u.appartenance_obs)!=EOF))
-		{
-			if(strcmp(u.cin_user,id)==0)
-			{
+void modifier_user(char * filename,char id[],utilisateur nu,int ET,int OU)
+{	
+int test=0;
+utilisateur u;
+FILE *f=fopen(filename,"r");
+FILE *f2=fopen("temp.txt","a");
+if(f!=NULL && f2!=NULL)
+    {
+     while (fscanf(f,"%s %s %d %d %d %s %s %s %d %d %s %s %s ",u.nom_user,u.prenom_user,&u.date.jour,&u.date.mois,&u.date.annee,u.cin_user,u.role_user,u.genre_user,&u.num_bv_user,&u.vote_user,u.nationalite_obs,u.profession_obs,u.appartenance_obs)!=EOF){
+    if(strcmp(id,u.cin_user)==0){
+        fprintf(f2,"%s %s %d %d %d %s %s %s %d %d %s %s %s \n",nu.nom_user,nu.prenom_user,nu.date.jour,nu.date.mois,nu.date.annee,nu.cin_user,nu.role_user,nu.genre_user,nu.num_bv_user,nu.vote_user,nu.nationalite_obs,nu.profession_obs,nu.appartenance_obs);
+        test=1;
+    }
+    else{fprintf(f2,"%s %s %d %d %d %s %s %s %d %d %s %s %s \n",u.nom_user,u.prenom_user,u.date.jour,u.date.mois,u.date.annee,u.cin_user,u.role_user,u.genre_user,u.num_bv_user,u.vote_user,u.nationalite_obs,u.profession_obs,u.appartenance_obs);}
+    }
 
-				(fprintf(f2," %s %s %d %d %d %s %s %s %d %d %s %s %s \n",nouv.nom_user,nouv.prenom_user,nouv.date.jour,nouv.date.mois,nouv.date.annee,nouv.cin_user,nouv.role_user,nouv.genre_user,nouv.num_bv_user,nouv.vote_user,nouv.nationalite_obs,nouv.profession_obs,nouv.appartenance_obs));
-				trouve=1;
-			}
-			else	
-				fprintf(f2,"%s %s %d %d %d %s %s %s %d %d %s %s %s \n",u.nom_user,u.prenom_user,u.date.jour,u.date.mois,u.date.annee,u.cin_user,u.role_user,u.genre_user,u.num_bv_user,u.vote_user,u.nationalite_obs,u.profession_obs,u.appartenance_obs);
-		}
-	}
-	fclose(f);
-	fclose(f2);
-	remove(fileuser);
-	rename("nouv.txt",fileuser);
+    }
+fclose(f);
+fclose(f2);
+remove(filename);
+rename("temp.txt",filename);
+
+
 }
+
 void supprimer_user(char * fileuser,char cin[10])
 {
 	int trouve=0;
@@ -107,6 +100,8 @@ utilisateur chercher_user(char * fileuser,char cin[])
 		}
 	}
 	fclose(f);
+	/*if(trouve==0)
+	strcpy(u.cin_user,"-1");*/
 	return u;
 }
 
@@ -274,9 +269,161 @@ void afficher_user(GtkWidget *liste,char * fileuser)
 
 
 
+int verif_EXIST(char id[10]){
+int test=0;
+utilisateur u;
+FILE *f=fopen("utilisateur.txt","r");
+	
+while(fscanf(f,"%s %s %d %d %d %s %s %s %d %d %s %s %s\n ",u.nom_user,u.prenom_user,&u.date.jour,&u.date.mois,&u.date.annee,u.cin_user,u.role_user,u.genre_user,&u.num_bv_user,&u.vote_user,u.nationalite_obs,u.profession_obs,u.appartenance_obs)!=EOF)
+{
+if(strcmp(u.cin_user,id)==0)test=1;
+
+}
+fclose(f);
+return test;
+}
+
+float TVB( char * fileuser)
+{
+	utilisateur u;
+   	float nvb,tvb,nbv;
+   	FILE * f=fopen(fileuser,"r");
+    	if(f!=NULL)
+    	{
+        	while(fscanf(f,"%s %s %d %d %d %s %s %s %d %d %s %s %s \n",u.nom_user,u.prenom_user,&u.date.jour,&u.date.mois,&u.date.annee,u.cin_user,u.role_user,u.genre_user,&u.num_bv_user,&u.vote_user,u.nationalite_obs,u.profession_obs,u.appartenance_obs)!=EOF)
+        	{	nbv++;
+            		if(u.vote_user==0)
+                	{	nvb+=1;
+	
+			}
+			
+        	}tvb=(nvb/nbv)*100;
+    	}
+    	fclose(f);
+	return tvb;
+}
+/*void TPHF(char * fileuser, int *f,int *h)
+{
+	utilisateur u;
+	int pf,ph;
+   	FILE * f1=fopen(fileuser, "r");
+	if(f1!=NULL)
+    	{
+        	while(fscanf(f1,"%s %s %d %d %d %s %s %s %d %d %s %s %s \n",u.nom_user,u.prenom_user,&u.date.jour,&u.date.mois,&u.date.annee,u.cin_user,u.role_user,u.genre_user,&u.num_bv_user,&u.vote_user,u.nationalite_obs,u.profession_obs,u.appartenance_obs)!=EOF)
+        	{
+			if(u.vote_user!=-1)
+			{
+            			if(strcasecmp(u.genre_user,"Femme")==0)
+                		{	
+					pf++;
+				
+				}
+				if(strcasecmp(u.genre_user,"Homme")==0)
+				{			
+					ph++;
+				}
+				
+			}	
+		}
+	}
+	fclose(f1);
+	*f=((*f+pf)/(pf+ph))*100;
+	*h=((*h+ph)/(pf+ph))*100;
+}
+float TPF(char * fileuser)
+{
+	utilisateur u;
+	float tpf;
+	int nb,pf;
+	char ch[]="Femme";
+   	FILE * f1=fopen(fileuser, "r");
+	if(f1!=NULL)
+    	{
+        	while(fscanf(f1,"%s %s %d %d %d %s %s %s %d %d %s %s %s \n",u.nom_user,u.prenom_user,&u.date.jour,&u.date.mois,&u.date.annee,u.cin_user,u.role_user,u.genre_user,&u.num_bv_user,&u.vote_user,u.nationalite_obs,u.profession_obs,u.appartenance_obs)!=EOF)
+        	{
+			if(u.vote_user!=-1)
+			{	nb++;
+            			if(strcasecmp(u.genre_user,ch)==0)
+                		{	
+					pf++;}
+				
+				
+				
+			}	
+		}tpf=(pf/nb)*100;
+	}	
+	fclose(f1);
+	return tpf;
+}
+float TPH(char * fileuser)
+{
+	utilisateur u;
+	int nb,ph;
+	float tph;
+   	FILE * f1=fopen(fileuser, "r");
+	if(f1!=NULL)
+    	{
+        	while(fscanf(f1,"%s %s %d %d %d %s %s %s %d %d %s %s %s \n",u.nom_user,u.prenom_user,&u.date.jour,&u.date.mois,&u.date.annee,u.cin_user,u.role_user,u.genre_user,&u.num_bv_user,&u.vote_user,u.nationalite_obs,u.profession_obs,u.appartenance_obs)!=EOF)
+        	{
+			if(u.vote_user!=-1)
+			{
+            			nb++;
+				if(strcasecmp(u.genre_user,"Homme")==0)
+				{			
+					ph++;
+				}
+				
+			}	
+		}tph=(ph/nb)*100;
+	}	
+	fclose(f1);
+	return tph;
+}*/
+void TPHF(char *fileuser,float *h,float *f){
+FILE *f1=fopen(fileuser,"r");
+utilisateur u;
+
+if(f1!=NULL){
+
+	while(fscanf(f1,"%s %s %d %d %d %s %s %s %d %d %s %s %s \n",u.nom_user,u.prenom_user,&u.date.jour,&u.date.mois,&u.date.annee,u.cin_user,u.role_user,u.genre_user,&u.num_bv_user,&u.vote_user,u.nationalite_obs,u.profession_obs,u.appartenance_obs)!=EOF)
+        {
+		if((strcmp(u.genre_user,"Homme")==0)&&(u.vote_user!=-1)&&(strcmp(u.role_user,"electeur")==0))
+		*h=*h+1;
+		else if((strcmp(u.genre_user,"Femme")==0)&&(u.vote_user!=-1)&&(strcmp(u.role_user,"electeur")==0))
+		*f=*f+1;
 
 
+	}
 
+}
+
+fclose(f1);
+*f=*f*100/NbrElecVote(fileuser);
+*h=*h*100/NbrElecVote(fileuser);
+
+ }
+
+int NbrElecVote(char * fileuser){
+int nbrvote=0;
+FILE *f1=fopen(fileuser,"r");
+utilisateur u;
+
+if(f1!=NULL){
+
+	int test;
+	while(fscanf(f1,"%s %s %d %d %d %s %s %s %d %d %s %s %s \n",u.nom_user,u.prenom_user,&u.date.jour,&u.date.mois,&u.date.annee,u.cin_user,u.role_user,u.genre_user,&u.num_bv_user,&u.vote_user,u.nationalite_obs,u.profession_obs,u.appartenance_obs)!=EOF)
+        {
+		test=strcmp(u.role_user,"electeur");
+		if((u.vote_user!=-1)&&(test==0))nbrvote++;
+
+	}
+
+}
+
+fclose(f1);
+
+return nbrvote;
+}
 
 
 
